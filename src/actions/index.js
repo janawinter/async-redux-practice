@@ -16,6 +16,7 @@ export function fetchPosts () {
         if (err) {
           return
         }
+        console.log(res.body.data)
         dispatch(receivePosts(subreddit, res.body.data.children))
       })
   }
