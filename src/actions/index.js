@@ -7,16 +7,23 @@ export const receivePosts = (subreddit, posts) => {
   }
 }
 
-export function fetchPosts (subreddit) {
-  return (dispatch) => {
+export function fetchPosts () {
+  return (dispatch, getState) => {
+    const subreddit = getState().currentSubreddit
     return request
       .get(`http://www.reddit.com/r/${subreddit}.json`)
       .end((err, res) => {
         if (err) {
-          console.error(err.message)
           return
         }
         dispatch(receivePosts(subreddit, res.body.data.children))
       })
+  }
+}
+
+export const enterNew = (word) => {
+  return {
+    type: 'ENTER_NEW',
+    word
   }
 }
